@@ -1,5 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import shutil
 import os
 
 path_origin_folder = 'C:/Users/ejder/OneDrive - Bildungszentrum Zürichsee/Desktop/FileOrganizer'
@@ -21,8 +22,10 @@ def images():
     return file_img, folder_img
 
 
-def button_clicked():
-    pass
+def button_clicked(path):
+    print(path)
+    # print(goal_path)
+    shutil.move(path,'C:/Users/ejder/OneDrive - Bildungszentrum Zürichsee/Desktop/test3.txt')
 
 
 def main():
@@ -43,14 +46,20 @@ def main():
         elif os.path.isfile(item_path):
             image_to_show = file_img
 
-        button = tk.Button(root, image=image_to_show, bd=0)
-        button.grid(row=row, column=col)
+        button = tk.Button(root, image=image_to_show, bd=0, command=lambda path=item_path: button_clicked(path))
+        button.grid(row=row, column=col, padx=5, pady=5)
 
         if col < 4:
             col += 1
         else:
             col = 0
             row += 1
+
+    entry = tk.Entry(root, width=100)
+    entry.grid(row=row + 1, column=0, columnspan=5, padx=5, pady=5)
+
+    submit_btn = tk.Button(root, text='Submit', command=lambda: print(entry.get()))
+    submit_btn.grid(row=row + 2, column=0, columnspan=5, padx=5, pady=5)
 
     root.mainloop()
 
