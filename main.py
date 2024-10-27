@@ -22,10 +22,15 @@ def images():
     return file_img, folder_img
 
 
-def button_clicked(path):
-    print(path)
-    # print(goal_path)
-    shutil.move(path,'C:/Users/ejder/OneDrive - Bildungszentrum Zürichsee/Desktop/test3.txt')
+def selected(path, selected_items):
+    selected_items.append(path)
+
+
+def move_files(goal_path, selected_items):
+    print(goal_path)
+    print(selected_items)
+    for item in selected_items:
+        shutil.move(item, goal_path)
 
 
 def main():
@@ -37,6 +42,7 @@ def main():
 
     file_img, folder_img = images()
 
+    selected_items = []
     row = 0
     col = 0
     for i in range(len(items)):
@@ -46,7 +52,7 @@ def main():
         elif os.path.isfile(item_path):
             image_to_show = file_img
 
-        button = tk.Button(root, image=image_to_show, bd=0, command=lambda path=item_path: button_clicked(path))
+        button = tk.Button(root, image=image_to_show, bd=0, command=lambda path=item_path: selected(path, selected_items))
         button.grid(row=row, column=col, padx=5, pady=5)
 
         if col < 4:
@@ -58,7 +64,7 @@ def main():
     entry = tk.Entry(root, width=100)
     entry.grid(row=row + 1, column=0, columnspan=5, padx=5, pady=5)
 
-    submit_btn = tk.Button(root, text='Submit', command=lambda: print(entry.get()))
+    submit_btn = tk.Button(root, text='Submit', command=lambda: move_files(entry.get(), selected_items))
     submit_btn.grid(row=row + 2, column=0, columnspan=5, padx=5, pady=5)
 
     root.mainloop()
