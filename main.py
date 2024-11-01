@@ -22,8 +22,9 @@ def images():
     return file_img, folder_img
 
 
-def selected(path, selected_items):
+def selected(path, selected_items, select_btn):
     selected_items.append(path)
+    select_btn.config(bg='light blue')
 
 
 def move_files(goal_path, selected_items):
@@ -52,7 +53,8 @@ def main():
         elif os.path.isfile(item_path):
             image_to_show = file_img
 
-        button = tk.Button(root, image=image_to_show, bd=0, command=lambda path=item_path: selected(path, selected_items))
+        button = tk.Button(root, image=image_to_show, bd=0)
+        button.config(command=lambda path=item_path, btn=button: selected(path, selected_items, btn))
         button.grid(row=row, column=col, padx=5, pady=5)
 
         if col < 4:
