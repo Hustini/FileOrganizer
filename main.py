@@ -30,8 +30,11 @@ def selected(path, selected_items, select_btn):
 def move_files(goal_path, selected_items):
     print(goal_path)
     print(selected_items)
-    for item in selected_items:
-        shutil.move(item, goal_path)
+    if os.path.exists(goal_path):
+        for item in selected_items:
+            shutil.move(item, goal_path)
+    else:
+        print(goal_path + ' not found')
 
 
 def main():
