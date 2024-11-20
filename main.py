@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 import shutil
 import os
 
-path_origin_folder = 'C:/Users/ejder/OneDrive - Bildungszentrum Zürichsee/Desktop/FileOrganizer'
+path_origin_folder = ''
 
 def images():
     """
